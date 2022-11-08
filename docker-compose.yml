@@ -30,9 +30,9 @@ services:
       - backend.env
     environment:
       - JAEGER_AGENT_HOST=jaeger
-      - STOREFRONT_URL=http://localhost:3000/
-      - DASHBOARD_URL=http://localhost:9000/
-      - ALLOWED_HOSTS=localhost,api
+      - STOREFRONT_URL=http://34.28.60.70:3000/
+      - DASHBOARD_URL=http://34.28.60.70:9000/
+      - ALLOWED_HOSTS=localhost,api,34.28.60.70
 
   storefront:
     extends:
