@@ -1,6 +1,4 @@
-FROM nginx:stable
-
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
+FROM node:14 as builder
 
 WORKDIR /macaw-ui
 
@@ -10,7 +8,7 @@ RUN npm run build
 
 WORKDIR /app
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm install --force
 
@@ -18,4 +16,10 @@ COPY . .
 
 RUN npm run build
 
+FROM nginx:stable
+
+WORKDIR /app
+
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=builder /app/build/* /app/
